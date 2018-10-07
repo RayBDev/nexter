@@ -2,4 +2,129 @@
   background-color: $color-primary;
   grid-column: sidebar-start / sidebar-end;
   grid-row: 1 / -1;
+
+  display: flex;
+  justify-content: center;
+
+  &__checkbox {
+    display: none;
+  }
+
+  &__expand-background {
+    position: fixed;
+    background-color: $color-primary;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 80;
+    width: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-out;
+  }
+
+  &__nav {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 90;
+    width: 25rem;
+    transform: translate(-50%, 400%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.2s 0.2s ease-out;
+
+    &-item {
+      list-style: none;
+      padding: 0.5rem;
+
+      a {
+        text-decoration: none;
+        font-family: $font-display;
+        color: #fff;
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        font-weight: 400;
+        padding: 1rem;
+        transition: all 0.3s;
+
+        &:hover {
+          background-color: $color-primary-dark;
+        }
+      }
+    }
+  }
+
+  &__btn {
+    border: none;
+    border-radius: 0;
+    margin-top: 2rem;
+    background-color: #fff;
+    height: 2px;
+    width: 4.5rem;
+    transition: all 0.2s;
+
+    &::before,
+    &::after {
+      background-color: #fff;
+      height: 2px;
+      width: 4.5rem;
+      content: "";
+      display: block;
+      transition: all 0.5s;
+    }
+
+    &::before {
+      transform: translateY(-1.5rem);
+    }
+
+    &::after {
+      transform: translateY(1.3rem);
+    }
+  }
+
+  &__btnbox {
+    position: fixed;
+    top: 2rem;
+    left: 1.7rem;
+    height: 5rem;
+    cursor: pointer;
+    z-index: 100;
+
+    &:hover {
+      & > *::before {
+        transform: translateY(-1.7rem);
+      }
+
+      & > *::after {
+        transform: translateY(1.5rem);
+      }
+    }
+  }
+
+  &__checkbox {
+    &:checked ~ .sidebar__expand-background {
+      width: 25rem;
+      visibility: visible;
+    }
+
+    &:checked ~ .sidebar__expand-background .sidebar__nav {
+      width: 25rem;
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%);
+    }
+
+    &:checked + .sidebar__btnbox .sidebar__btn {
+      background-color: transparent;
+    }
+
+    &:checked + .sidebar__btnbox .sidebar__btn::before {
+      transform: rotate(135deg);
+    }
+
+    &:checked + .sidebar__btnbox .sidebar__btn::after {
+      transform: rotate(-135deg);
+    }
+  }
 }

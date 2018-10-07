@@ -70,6 +70,7 @@ let cards = [];
 for (let key in cardData) {
   cards.push(
     <Card
+      key={key}
       houseImg={cardData[key].houseImg}
       houseImgAlt={cardData[key].houseImgAlt}
       houseName={cardData[key].houseName}
